@@ -1,8 +1,5 @@
-// import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import Modal from './components/UI/Modal.tsx';
-import Button from './components/UI/Button.tsx';
 import Header from './components/Navigation/Header.tsx';
 
 import HomePage from './pages/Home.tsx';
