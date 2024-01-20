@@ -4,11 +4,11 @@ import { useState } from 'react';
 type InputProps = {
     label: string;
     id: string;
-    value: string;
+    // value: string;
     onInputChange: (value: string) => void
 } & ComponentPropsWithoutRef<'input'>;
 
-const Input:FC<InputProps> = ({ label, id, value, onInputChange, ...props }) => {
+const Input:FC<InputProps> = ({ label, id, onInputChange, ...props }) => {
 
   const [inputValue, setInputValue] = useState<string>('')
 

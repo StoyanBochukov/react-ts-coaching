@@ -1,8 +1,10 @@
 import { useEffect, useState, FC } from 'react';
 import Modal from '../UI/Modal.tsx';
-// import UpcomingSession from './UpcomingSession.tsx';
-// import { useSessionsContext } from '../../store/sessions-context.tsx';
+import UpcomingSession from './UpcomingSession.tsx';
 import Button from '../UI/Button.tsx';
+import { useAppSelector } from '../../hooks/useSelector.ts';
+import { useAppDispatch } from '../../hooks/useDispatch.ts';
+import { type Session, cancelSession } from '../../reducers/sessionsSlide.ts';
 
 type UpcomingSessionsProps = {
   onClose: () => void; // onClose is accepted to "tell" the parent component that the UpcomingSessions component should be removed from the DOM
@@ -12,6 +14,10 @@ type UpcomingSessionsProps = {
 const UpcomingSessions:FC<UpcomingSessionsProps> = ({ onClose }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { upcomingSessions } = useAppSelector(state => state.session)
+    const dispatch = useAppDispatch()
+    console.log(upcomingSessions);
+    
 
     // const sessionsCtx = useSessionsContext();
   
@@ -22,28 +28,28 @@ const UpcomingSessions:FC<UpcomingSessionsProps> = ({ onClose }) => {
     setIsModalOpen(true);
     }, []);
   
-    // function handleCancelSession(sessionId: string) {
-    //   sessionsCtx.cancelSession(sessionId);
-    // }
+    function handleCancelSession(id: Session) {
+     dispatch(cancelSession(id))
+    }
   
-    // const hasSessions = sessionsCtx.upcomingSessions.length > 0;
+    const hasSessions = upcomingSessions.length > 0;
 
   return (
     <Modal isOpen={isModalOpen} onRequestClose={onClose}>
     <h2>Upcoming Sessions</h2>
-    {/* {hasSessions && (
+    {hasSessions && (
       <ul>
-        {sessionsCtx.upcomingSessions.map((session) => (
+        {upcomingSessions.map((session) => (
           <li key={session.id}>
             <UpcomingSession
               session={session}
-              onCancel={() => handleCancelSession(session.id)}
+              onCancel={() => handleCancelSession(session)}
             />
           </li>
         ))}
       </ul>
-    )} */}
-    {/* {!hasSessions && <p>No upcoming sessions.</p>} */}
+    )}
+    {!hasSessions && <p>No upcoming sessions.</p>}
     <p className="actions">
       <Button type='button' textOnly={false} onClick={onClose}>Close</Button>
     </p>

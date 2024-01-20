@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import sessionsSlide from "../reducers/sessionsSlide";
 
 const store  = configureStore({
     reducer:{
-
+        session: sessionsSlide,
     }
 });
 
